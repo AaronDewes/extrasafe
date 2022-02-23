@@ -73,10 +73,14 @@ jobs:
         uses: actions/checkout@v2
       - name: Install libseccomp
         run: sudo apt-get install libseccomp-dev
+      - name: Install cargo tarpaulin
+        run: cargo install cargo-tarpaulin
       - name: Run cargo tarpaulin
-        uses: actions-rs/tarpaulin@v0.1
-        with:
-          args: '--follow-exec --tests --examples --${{ matrix.features }} --out Lcov --output-dir ./coverage'
+        run: cargo tarpaulin --follow-exec --tests --examples --${{ matrix.features }} --out Lcov --output-dir ./coverage
+          # - name: Run cargo tarpaulin
+          #   uses: actions-rs/tarpaulin@v0.1
+          #   with:
+          #     args: '--follow-exec --tests --examples --${{ matrix.features }} --out Lcov --output-dir ./coverage'
       - name: Upload coverage to coveralls
         uses: coverallsapp/github-action@master
         with:
