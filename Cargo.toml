@@ -9,6 +9,13 @@ license = "MIT"
 keywords = ["security", "seccomp", "syscall"]
 categories = ["os::linux-apis"]
 
+[features]
+default = ["reqwest/native-tls"]
+
+# request and rusqlite are only used when building examples.
+# libseccomp-rs/bundled downloads and statically links libseccomp.
+bundled = ["libseccomp-rs/bundled", "reqwest/rustls-tls", "rusqlite/bundled"]
+
 [dependencies]
 libseccomp = "^0.2"
 libc = "^0.2"
@@ -24,5 +31,5 @@ tempfile = "^3"
 tokio = "^1.15"
 hyper = { version = "^0.14", features = ["http1", "server", "runtime", "tcp"] }
 warp = "^0.3"
-reqwest = "^0.11"
-rusqlite = "^0.26"
+reqwest = { version = "^0.11", default-features = false }
+rusqlite = { version = "^0.26" }

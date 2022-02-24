@@ -30,6 +30,30 @@ jobs:
       - name: Run tests
         run: cargo test --tests --examples
 
+  static-link-bundled:
+    name: Run tests with bundled feature and statically linked with musl
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - x86_64-unknown-linux-musl
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Rust toolchain
+        run: rustup target add ${{ matrix.target }}
+      - name: Install required dependencies for bundled (may be preinstalled)
+        run: sudo apt-get install gperf tar curl
+      - name: Install musl gcc
+        run: sudo apt-get install musl-tools
+      - name: Build
+        run: cargo build --features bundled --target ${{ matrix.target }}
+      - name: Test
+        # --no-default-features is required here so reqwest, used in an
+        # example, doesn't try to use openssl
+        run: cargo test --tests --examples --no-default-features --features bundled --target ${{ matrix.target }}
+
   doc:
     name: Documentation Check
     runs-on: ubuntu-latest

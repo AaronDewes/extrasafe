@@ -58,7 +58,14 @@ You don't want to use extrasafe directly in your library because you don't know 
 
 You may be able to use extrasafe to help test certain edge-cases, like the network being unavailable or not being able to read files, but I think that use-case would be better served by a separate library. Email me if you're interested in this!
 
-# Why?
+# Cargo features
+
+## `bundled`
+**Note that by using the bundled feature, you must comply with the requirements of the LGPL, under which libseccomp is licensed [libseccomp](https://github.com/seccomp/libseccomp/).**
+
+The bundled feature enables libseccomp-rs's bundled feature, which will automatically download, compile, and link libseccomp directly into your application. This means you can build your application with musl and still use libseccomp, and sets the grounds for cross-compilation (although not currently fully supported in libseccomp-rs yet, and the builtins in extrasafe still assume x86\_64).
+
+# Why use extrasafe?
 
 So you can be extra safe. Suppose your program has a dependency with an undiscovered RCE lurking somewhere: extrasafe allows you to partially hedge against that by disabling access to functionality you don't need.
 
