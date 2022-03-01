@@ -1,0 +1,10 @@
+[examples]
+command = "Build"
+run-types = ["Examples"]
+
+[tests]
+run-types = ["Tests"]
+
+[report]
+out = ["Lcov"]
+output-dir = "./coverage"
