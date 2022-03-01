@@ -62,6 +62,8 @@ fn with_db(
 }
 
 fn run_webserver(db_socket_path: &str) {
+
+    panic!("test panic but pls don't ignore");
     // we open the socket ahead of time and share it among all webserver http threads (just like
     // with a real db connection we could have a pool of them instead of a single one)
 
