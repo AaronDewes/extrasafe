@@ -57,7 +57,7 @@ jobs:
       - name: Install tarpaulin
         run: cargo install cargo-tarpaulin
       - name: Run tarpaulin
-        run: cargo tarpaulin
+        run: RUST_TEST_THREADS=2 cargo tarpaulin
       - name: Upload coverage to coveralls
         uses: coverallsapp/github-action@master
         with:
